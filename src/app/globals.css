@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #101010;
+  --color-coal: #1a1a1a;
+  --color-orange: #ff7900;
+  --color-orange-deep: #e56d00;
+  --color-paper: #f7f6f3;
+  --color-cream: #f1efe9;
+  --color-sand: #e9e6dd;
+  --color-line: #e4e1d8;
+  --color-smoke: #737373;
+  --color-magenta: #d6218e;
+  --color-wa: #23c25e;
+
+  --font-display: var(--font-fraunces), "Georgia", serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --animate-fade-up: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 1.2s ease both;
+  --animate-pop: pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(255, 121, 0, 0.28);
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn {
+    @apply inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition-all duration-300 select-none active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition-all duration-300 select-none active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+    @apply bg-orange text-ink shadow-[0_8px_24px_-8px_rgba(255,121,0,0.55)] hover:-translate-y-0.5 hover:bg-orange-deep hover:text-white;
+  }
+  .btn-dark {
+    @apply inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition-all duration-300 select-none active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+    @apply bg-ink text-white hover:-translate-y-0.5 hover:bg-black;
+  }
+  .btn-outline {
+    @apply inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition-all duration-300 select-none active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+    @apply border border-ink/25 bg-transparent text-ink hover:border-ink hover:bg-ink hover:text-white;
+  }
+  .btn-light {
+    @apply inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition-all duration-300 select-none active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+    @apply bg-white text-ink hover:-translate-y-0.5 hover:bg-cream;
+  }
+  .btn-sm {
+    @apply h-10 px-4 text-xs;
+  }
+
+  .lbl {
+    @apply mb-1.5 block text-[11px] font-semibold tracking-wide text-ink/70 uppercase;
+  }
+  .field {
+    @apply h-12 w-full rounded-xl border border-line bg-white px-4 text-sm text-ink transition outline-none placeholder:text-smoke/60 focus:border-orange focus:ring-2 focus:ring-orange/20;
+  }
+  .field-area {
+    @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink transition outline-none placeholder:text-smoke/60 focus:border-orange focus:ring-2 focus:ring-orange/20;
+  }
+
+  .chip {
+    @apply inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full border border-line bg-white px-4 text-xs font-medium text-ink/70 transition hover:border-ink/40 hover:text-ink;
+  }
+  .chip-on {
+    @apply border-ink bg-ink text-white hover:border-ink hover:text-white;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-[10px] font-bold tracking-wider uppercase;
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-bold tracking-[0.22em] text-orange uppercase;
+  }
+
+  .card {
+    @apply rounded-2xl border border-line bg-white;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.on {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
