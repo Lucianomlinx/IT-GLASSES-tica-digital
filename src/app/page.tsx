@@ -8,9 +8,6 @@ import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
 import { waLink, INSTAGRAM_URL } from "@/lib/whatsapp";
 import igorPhoto from "@/fotos/igor/1° FOTO PRINCIPAL.jpeg";
-import blackFridayPhoto1 from "@/fotos/black/Black friday 1° foto.jpeg";
-import blackFridayPhoto2 from "@/fotos/black/black friday 2° foto.jpeg";
-import blackFridayPhoto3 from "@/fotos/black/black friday 3° foto.jpeg";
 import {
   IconAlert,
   IconArrowRight,
@@ -34,11 +31,8 @@ const IMG = {
   lentesLab: "https://images.pexels.com/photos/33857834/pexels-photo-33857834.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1200",
 };
 
-const BLACK_FRIDAY_IMAGES = [
-  blackFridayPhoto1.src,
-  blackFridayPhoto2.src,
-  blackFridayPhoto3.src,
-] as const;
+/** Modelos da vitrine Black Friday na home, na ordem em que aparecem (códigos do catálogo). */
+const BLACK_FRIDAY_HOME = ["IT-2023", "IT-2005", "IT-2020"] as const; // Coroa do Avião, Tamandaré, Dunas
 
 const CATEGORIES = [
   {
@@ -95,7 +89,9 @@ export default async function HomePage() {
     queryProducts({ categoria: "sol" }),
   ]);
   const featured = featuredAll.slice(0, 4);
-  const sun = sunAll.slice(0, 3);
+  const sun = BLACK_FRIDAY_HOME.map((code) => sunAll.find((p) => p.code === code)).filter(
+    (p) => p !== undefined,
+  );
   const bfActive = isBlackFridayActive();
 
   return (
@@ -241,7 +237,7 @@ export default async function HomePage() {
               </Link>
             </div>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
-              {sun.map((p, i) => (
+              {sun.map((p) => (
                 <Link
                   key={p.id}
                   href={`/produto/${p.id}`}
@@ -250,7 +246,7 @@ export default async function HomePage() {
                   <div className="relative aspect-square overflow-hidden bg-cream">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={BLACK_FRIDAY_IMAGES[i] ?? p.imageUrl}
+                      src={p.imageUrl}
                       alt={fullName(p)}
                       loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"

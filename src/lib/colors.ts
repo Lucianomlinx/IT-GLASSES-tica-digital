@@ -5,6 +5,7 @@ export const COLOR_SWATCH: Record<string, string> = {
   Cristal: "#dcdcd6",
   Dourado: "#c9a24b",
   Prata: "#b9bcc2",
+  Cinza: "#7d8086",
   Verde: "#3f8a55",
   Vermelho: "#c8262c",
   Rosa: "#e9a3b8",

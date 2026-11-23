@@ -20,7 +20,6 @@ import gradePhoto12 from "@/fotos/grau/WhatsApp Image 2026-11-17 at 20.44.51 (2)
 import gradePhoto13 from "@/fotos/grau/WhatsApp Image 2026-11-17 at 20.44.52.jpeg";
 import gradePhoto14 from "@/fotos/grau/WhatsApp Image 2026-11-17 at 20.44.52 (1).jpeg";
 import gradePhoto15 from "@/fotos/grau/WhatsApp Image 2026-11-17 at 20.44.52 (2).jpeg";
-import gradePhoto16 from "@/fotos/grau/f57e9397-2be1-4e98-a138-83940c2b3af7.jpg";
 import sunPhoto01 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.37.jpeg";
 import sunPhoto02 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.38.jpeg";
 import sunPhoto03 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.38 (1).jpeg";
@@ -30,17 +29,17 @@ import sunPhoto06 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.38 (4).jp
 import sunPhoto07 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.39.jpeg";
 import sunPhoto08 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.39 (1).jpeg";
 import sunPhoto09 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.39 (2).jpeg";
-import sunPhoto10 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.39 (3).jpeg";
 import sunPhoto11 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.39 (3)(1).jpeg";
 import sunPhoto12 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.39 (4).jpeg";
-import sunPhoto13 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.39 (5).jpeg";
-import sunPhoto14 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.39 (6).jpeg";
 import sunPhoto15 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.39 (9).jpeg";
 import sunPhoto16 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.39 (10).jpeg";
 import sunPhoto17 from "@/fotos/sol/WhatsApp Image 2026-11-16 at 20.15.40.jpeg";
 import sunPhoto18 from "@/fotos/sol/WhatsApp Image 2026-11-17 at 19.11.09 (2).jpeg";
 import sunPhoto19 from "@/fotos/sol/4938df49-c5c4-40a7-b879-03c9793a56f6.jpg";
 import sunPhoto20 from "@/fotos/sol/a79d24b0-5ce5-4560-a4c6-1102ed0d2e9a.jpg";
+import blackPhoto1 from "@/fotos/black/Black friday 1° foto.jpeg";
+import blackPhoto2 from "@/fotos/black/black friday 2° foto.jpeg";
+import blackPhoto3 from "@/fotos/black/black friday 3° foto.jpeg";
 
 export { COLOR_SWATCH };
 export type { Product };
@@ -68,13 +67,6 @@ const GRADE_IMAGES = [
   gradePhoto07.src,
   gradePhoto08.src,
   gradePhoto09.src,
-  gradePhoto10.src,
-  gradePhoto11.src,
-  gradePhoto12.src,
-  gradePhoto13.src,
-  gradePhoto14.src,
-  gradePhoto15.src,
-  gradePhoto16.src,
 ] as const;
 
 const SUN_IMAGES = [
@@ -84,20 +76,6 @@ const SUN_IMAGES = [
   sunPhoto04.src,
   sunPhoto05.src,
   sunPhoto06.src,
-  sunPhoto07.src,
-  sunPhoto08.src,
-  sunPhoto09.src,
-  sunPhoto10.src,
-  sunPhoto11.src,
-  sunPhoto12.src,
-  sunPhoto13.src,
-  sunPhoto14.src,
-  sunPhoto15.src,
-  sunPhoto16.src,
-  sunPhoto17.src,
-  sunPhoto18.src,
-  sunPhoto19.src,
-  sunPhoto20.src,
 ] as const;
 
 const SEEDS: Seed[] = [
@@ -195,77 +173,112 @@ const SEEDS: Seed[] = [
   },
 ];
 
-const EXTRA_GRADE_NAMES = [
-  "Janga",
-  "Itamaracá",
-  "Maria Farinha",
-  "Forte Orange",
-  "Casa Caiada",
-  "Enseada",
-  "Costa Azul",
-];
-const EXTRA_GRADE_PRICES = [14990, 12990, 13990, 15990, 12990, 14990, 13990];
-const EXTRA_SUN_NAMES = [
-  "Arrecife",
-  "Catuama",
-  "Guadalupe",
-  "Maresias",
-  "Pontal",
-  "Maragogi",
-  "Maresia",
-  "Salinas",
-  "Atlântico",
-  "Vento Sul",
-  "Coqueiral",
-  "Náutico",
-  "Solano",
-  "Dunas",
-];
-const EXTRA_SUN_PRICES = [
-  10990, 11990, 9990, 9990, 11490, 12990, 10990,
-  11990, 9990, 11490, 12990, 10990, 11990, 9990,
+/*
+ * Modelos extras (só foto, nome e preço). O id e o código são fixos de propósito:
+ * os links /produto/[id] e o carrinho salvo no navegador dependem deles, então
+ * remover um modelo não pode renumerar os outros. Ids 1–17 são dos SEEDS acima;
+ * novos modelos devem usar ids a partir de 42.
+ * Removidos por foto duplicada: IT-1016 Costa Azul (24), IT-2010 Maresias (28),
+ * IT-2013 Maresia (31), IT-2014 Salinas (32).
+ */
+type Extra = { id: number; code: string; name: string; priceCents: number; image: string };
+
+const EXTRA_GRADE: Extra[] = [
+  { id: 18, code: "IT-1010", name: "Janga", priceCents: 14990, image: gradePhoto10.src },
+  { id: 19, code: "IT-1011", name: "Itamaracá", priceCents: 12990, image: gradePhoto11.src },
+  { id: 20, code: "IT-1012", name: "Maria Farinha", priceCents: 13990, image: gradePhoto12.src },
+  { id: 21, code: "IT-1013", name: "Forte Orange", priceCents: 15990, image: gradePhoto13.src },
+  { id: 22, code: "IT-1014", name: "Casa Caiada", priceCents: 12990, image: gradePhoto14.src },
+  { id: 23, code: "IT-1015", name: "Enseada", priceCents: 14990, image: gradePhoto15.src },
 ];
 
-const EXTRA_SEEDS: Seed[] = [
-  ...GRADE_IMAGES.slice(9).map(
-    (image, i): Seed => ({
-      code: `IT-${String(1010 + i).padStart(4, "0")}`,
-      name: EXTRA_GRADE_NAMES[i],
-      category: "grau",
-      priceCents: EXTRA_GRADE_PRICES[i],
-      color: "",
-      material: "",
-      shape: "",
-      description:
-        "Armação da coleção de óculos de grau IT Glasses. Fale com nossa equipe para consultar os detalhes e combinar as lentes com sua receita.",
-      image,
-    }),
-  ),
-  ...SUN_IMAGES.slice(6).map(
-    (image, i): Seed => ({
-      code: `IT-${String(2007 + i).padStart(4, "0")}`,
-      name: EXTRA_SUN_NAMES[i],
-      category: "sol",
-      priceCents: EXTRA_SUN_PRICES[i],
-      color: "",
-      material: "",
-      shape: "",
-      description:
-        "Óculos de sol da coleção IT Glasses. Fale com nossa equipe para consultar os detalhes do modelo e disponibilidade.",
-      image,
-    }),
-  ),
+const EXTRA_SUN: Extra[] = [
+  { id: 25, code: "IT-2007", name: "Arrecife", priceCents: 10990, image: sunPhoto07.src },
+  { id: 26, code: "IT-2008", name: "Catuama", priceCents: 11990, image: sunPhoto08.src },
+  { id: 27, code: "IT-2009", name: "Guadalupe", priceCents: 9990, image: sunPhoto09.src },
+  { id: 29, code: "IT-2011", name: "Pontal", priceCents: 11490, image: sunPhoto11.src },
+  { id: 30, code: "IT-2012", name: "Maragogi", priceCents: 12990, image: sunPhoto12.src },
+  { id: 33, code: "IT-2015", name: "Atlântico", priceCents: 9990, image: sunPhoto15.src },
+  { id: 34, code: "IT-2016", name: "Vento Sul", priceCents: 11490, image: sunPhoto16.src },
+  { id: 35, code: "IT-2017", name: "Coqueiral", priceCents: 12990, image: sunPhoto17.src },
+  { id: 36, code: "IT-2018", name: "Náutico", priceCents: 10990, image: sunPhoto18.src },
+  { id: 37, code: "IT-2019", name: "Solano", priceCents: 11990, image: sunPhoto19.src },
+  { id: 38, code: "IT-2020", name: "Dunas", priceCents: 9990, image: sunPhoto20.src },
 ];
 
-export const PRODUCTS: Product[] = [...SEEDS, ...EXTRA_SEEDS].map(
-  ({ image, featured, ...s }, i) => ({
+/* Hexagonal da Black Friday: mesmo modelo em três cores, cada cor é um produto. */
+const BLACK_SUN: (Seed & { id: number })[] = [
+  {
+    id: 39, code: "IT-2021", name: "Pau Amarelo", category: "sol", priceCents: 11990,
+    color: "Tartaruga", material: "Acetato", shape: "Hexagonal", image: blackPhoto1.src,
+    description: "Hexagonal em acetato tartaruga com lentes marrom degradê e UV400. Retrô com personalidade, quente como o fim de tarde em Pau Amarelo.",
+  },
+  {
+    id: 40, code: "IT-2022", name: "Barra de Jangada", category: "sol", priceCents: 11990,
+    color: "Preto", material: "Acetato", shape: "Hexagonal", image: blackPhoto2.src,
+    description: "Hexagonal em acetato preto brilhante com lentes fumê e UV400. Marcante e fácil de usar, do jeito que Barra de Jangada pede.",
+  },
+  {
+    id: 41, code: "IT-2023", name: "Coroa do Avião", category: "sol", priceCents: 11990,
+    color: "Cinza", material: "Acetato", shape: "Hexagonal", image: blackPhoto3.src,
+    description: "Hexagonal em acetato cinza translúcido com lentes fumê degradê e UV400. Leve e moderno, com o brilho da Coroa do Avião.",
+  },
+];
+
+const EXTRA_SEEDS: (Seed & { id: number })[] = [
+  ...EXTRA_GRADE.map((e) => ({
+    ...e,
+    category: "grau" as const,
+    color: "",
+    material: "",
+    shape: "",
+    description:
+      "Armação da coleção de óculos de grau IT Glasses. Fale com nossa equipe para consultar os detalhes e combinar as lentes com sua receita.",
+  })),
+  ...EXTRA_SUN.map((e) => ({
+    ...e,
+    category: "sol" as const,
+    color: "",
+    material: "",
+    shape: "",
+    description:
+      "Óculos de sol da coleção IT Glasses. Fale com nossa equipe para consultar os detalhes do modelo e disponibilidade.",
+  })),
+  ...BLACK_SUN,
+];
+
+export const PRODUCTS: Product[] = [
+  ...SEEDS.map((s, i) => ({ ...s, id: i + 1 })),
+  ...EXTRA_SEEDS,
+].map(
+  ({ image, featured, ...s }) => ({
     ...s,
-    id: i + 1,
     imageUrl: image,
     featured: featured ?? false,
     active: true,
   }),
 );
+
+/* Trava de segurança: nome, código, id e foto não podem se repetir no site. */
+{
+  const normalize = (v: string) =>
+    v.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const checks: [string, (p: Product) => string][] = [
+    ["nome", (p) => normalize(p.name)],
+    ["código", (p) => p.code],
+    ["id", (p) => String(p.id)],
+    ["foto", (p) => p.imageUrl],
+  ];
+  for (const [label, key] of checks) {
+    const seen = new Map<string, string>();
+    for (const p of PRODUCTS) {
+      const k = key(p);
+      const other = seen.get(k);
+      if (other) throw new Error(`Catálogo: ${label} repetido em ${other} e ${p.code} (${p.name})`);
+      seen.set(k, `${p.code} (${p.name})`);
+    }
+  }
+}
 
 /* --------------------------------- Consultas --------------------------------- */
 
