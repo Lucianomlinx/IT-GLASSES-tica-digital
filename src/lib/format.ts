@@ -20,41 +20,10 @@ export function formatDateBR(isoDate: string): string {
   });
 }
 
-export function formatDateTimeBR(date: Date | string): string {
-  const d = typeof date === "string" ? new Date(date) : date;
-  return d.toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "2-digit",
-  }) + " " + d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
-}
-
-export function bookingCode(id: number): string {
-  return `ML-${String(id).padStart(4, "0")}`;
-}
-
-export function orderCode(id: number): string {
-  return `IT-${String(id).padStart(4, "0")}`;
-}
-
 export const CATEGORY_LABEL: Record<string, string> = {
   grau: "Óculos de grau",
   sol: "Óculos de sol",
   contato: "Lentes de contato",
-};
-
-export const BOOKING_STATUS_LABEL: Record<string, string> = {
-  aguardando: "Aguardando confirmação",
-  confirmado: "Confirmado",
-  concluido: "Concluído",
-  cancelado: "Cancelado",
-};
-
-export const ORDER_STATUS_LABEL: Record<string, string> = {
-  novo: "Novo",
-  em_atendimento: "Em atendimento",
-  concluido: "Concluído",
-  cancelado: "Cancelado",
 };
 
 type Named = { name: string; category: string };

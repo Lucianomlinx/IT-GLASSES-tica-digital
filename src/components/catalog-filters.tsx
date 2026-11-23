@@ -44,11 +44,15 @@ export function CatalogFilters({ current }: { current: CatalogCurrent }) {
     router.push(qs ? `/catalogo?${qs}` : "/catalogo", { scroll: false });
   }
 
-  useEffect(() => {
+  // Quando a URL muda (voltar, limpar filtros), os campos acompanham.
+  const urlKey = `${current.q ?? ""}|${current.min ?? ""}|${current.max ?? ""}`;
+  const [syncedKey, setSyncedKey] = useState(urlKey);
+  if (syncedKey !== urlKey) {
+    setSyncedKey(urlKey);
     setQ(current.q ?? "");
     setMin(current.min ?? "");
     setMax(current.max ?? "");
-  }, [current.q, current.min, current.max]);
+  }
 
   useEffect(() => {
     if (firstRender.current) {

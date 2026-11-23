@@ -23,10 +23,12 @@ const NAV = [
 ];
 
 export function Header() {
-  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { count } = useCart();
   const pathname = usePathname();
+  // O menu fica aberto só na página em que foi aberto: ao navegar, fecha sozinho.
+  const [openOn, setOpenOn] = useState<string | null>(null);
+  const open = openOn === pathname;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -34,10 +36,6 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
 
   return (
     <div className="fixed inset-x-0 top-0 z-50">
@@ -124,7 +122,7 @@ export function Header() {
             </Link>
             <button
               type="button"
-              onClick={() => setOpen((v) => !v)}
+              onClick={() => setOpenOn(open ? null : pathname)}
               aria-label={open ? "Fechar menu" : "Abrir menu"}
               aria-expanded={open}
               className="grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-line bg-white text-ink transition hover:border-ink lg:hidden"

@@ -73,6 +73,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
               qty: Math.max(1, Math.min(10, Number(i.qty) || 1)),
             });
           }
+          // Proposital: a sacola só é lida do navegador depois da hidratação, para o HTML
+          // do servidor (sacola vazia) bater com o primeiro render do cliente.
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setItems(synced);
         }
       }

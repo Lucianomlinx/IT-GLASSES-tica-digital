@@ -1,10 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { BLACK_FRIDAY } from "@/lib/promo";
 
-function diff(target: number) {
-  const ms = Math.max(0, target - Date.now());
+/* Relógio compartilhado: avisa a cada segundo. No servidor (e na hidratação) vale null. */
+function subscribeClock(onTick: () => void) {
+  const id = setInterval(onTick, 1000);
+  return () => clearInterval(id);
+}
+const nowSeconds = () => Math.floor(Date.now() / 1000);
+const serverNow = () => null;
+
+function diff(target: number, now: number) {
+  const ms = Math.max(0, target - now);
   return {
     ms,
     d: Math.floor(ms / 86_400_000),
@@ -16,13 +24,8 @@ function diff(target: number) {
 
 export function Countdown({ dark = true }: { dark?: boolean }) {
   const target = new Date(BLACK_FRIDAY.endsAt).getTime();
-  const [t, setT] = useState<ReturnType<typeof diff> | null>(null);
-
-  useEffect(() => {
-    setT(diff(target));
-    const id = setInterval(() => setT(diff(target)), 1000);
-    return () => clearInterval(id);
-  }, [target]);
+  const now = useSyncExternalStore(subscribeClock, nowSeconds, serverNow);
+  const t = now === null ? null : diff(target, now * 1000);
 
   const cells = [
     { v: t?.d, l: "dias" },
