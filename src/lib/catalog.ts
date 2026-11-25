@@ -87,7 +87,7 @@ const SEEDS: Seed[] = [
   },
   {
     code: "IT-1002", name: "Paiva", category: "grau", priceCents: 12990,
-    color: "Preto", material: "Acetato", shape: "Redondo", image: GRADE_IMAGES[1], featured: true,
+    color: "Preto", material: "Acetato", shape: "Redondo", image: GRADE_IMAGES[1],
     description: "Um clássico contemporâneo: aro redondo em acetato preto polido, marcante na medida certa. Vai do trabalho ao fim de semana sem esforço e valoriza rostos ovais e quadrados.",
   },
   {
@@ -102,7 +102,7 @@ const SEEDS: Seed[] = [
   },
   {
     code: "IT-1005", name: "Olinda", category: "grau", priceCents: 12990,
-    color: "Prata", material: "Metal", shape: "Redondo", image: GRADE_IMAGES[4],
+    color: "Prata", material: "Metal", shape: "Redondo", image: GRADE_IMAGES[4], featured: true,
     description: "Retrô de alma leve, como as ladeiras de Olinda: aro redondo em metal prata ultrafino, quase imperceptível no rosto. Vintage com conforto moderno.",
   },
   {
@@ -117,7 +117,7 @@ const SEEDS: Seed[] = [
   },
   {
     code: "IT-1008", name: "Candeias", category: "grau", priceCents: 13990,
-    color: "Verde", material: "Acetato", shape: "Gatinho", image: GRADE_IMAGES[7], featured: true,
+    color: "Verde", material: "Acetato", shape: "Gatinho", image: GRADE_IMAGES[7],
     description: "Gatinho em acetato verde com degradê cristal: cor na medida certa para quem quer sair do básico com leveza e muita personalidade.",
   },
   {
@@ -210,7 +210,7 @@ const EXTRA_SUN: Extra[] = [
 const BLACK_SUN: (Seed & { id: number })[] = [
   {
     id: 39, code: "IT-2021", name: "Pau Amarelo", category: "sol", priceCents: 11990,
-    color: "Tartaruga", material: "Acetato", shape: "Hexagonal", image: blackPhoto1.src,
+    color: "Tartaruga", material: "Acetato", shape: "Hexagonal", image: blackPhoto1.src, featured: true,
     description: "Hexagonal em acetato tartaruga com lentes marrom degradê e UV400. Retrô com personalidade, quente como o fim de tarde em Pau Amarelo.",
   },
   {

@@ -33,6 +33,7 @@ const IMG = {
 
 /** Modelos da vitrine Black Friday na home, na ordem em que aparecem (códigos do catálogo). */
 const BLACK_FRIDAY_HOME = ["IT-2023", "IT-2005", "IT-2020"] as const; // Coroa do Avião, Tamandaré, Dunas
+const HOME_FEATURED_ORDER = ["IT-1001", "IT-2021", "IT-1005", "IT-2002"] as const;
 
 const CATEGORIES = [
   {
@@ -88,7 +89,11 @@ export default async function HomePage() {
     queryProducts({ featured: true }),
     queryProducts({ categoria: "sol" }),
   ]);
-  const featured = featuredAll.slice(0, 4);
+  const featuredByCode = new Map(featuredAll.map((p) => [p.code, p]));
+  const featured = HOME_FEATURED_ORDER.flatMap((code) => {
+    const product = featuredByCode.get(code);
+    return product ? [product] : [];
+  });
   const sun = BLACK_FRIDAY_HOME.map((code) => sunAll.find((p) => p.code === code)).filter(
     (p) => p !== undefined,
   );
